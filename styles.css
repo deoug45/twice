@@ -149,8 +149,8 @@ nav a.active {
 
 /* Footer */
 footer {
-  background-color: black;
-  color: ornage;
+  background-color:orange;
+  color:black;
   padding: 20px;
   text-align: center;
 }
