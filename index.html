@@ -18,10 +18,12 @@
         <li><a href="showbiz.html">Showbiz</a></li>
       </ul>
     </nav>
-    <div class="search-bar">
-      <input type="text" placeholder="Search news...">
-      <button>Search</button>
-    </div>
+ <!-- Search Bar -->
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search news...">
+    <button id="search-btn">Search</button>
+  </div>
+  
   </header>
 
   <!-- Hero Section (Breaking News) -->
@@ -30,16 +32,27 @@
       <div class="slide">
         <img src="welcome.jpg" alt="Breaking News">
         <div class="slide-text">Enjoy our exclusive showbiz stories from the world of entertainment</div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Top Stories Grid -->
- 
-
+  <!-- Main Content (Top Stories) -->
+  <main>
+    <section class="news-grid">
+      <h2 class="section-title">Top Stories</h2>
+      <div class="grid-container" id="news-container">
+        <!-- Top stories will be displayed here -->
+      </div>
+    </section>
+  </main>
   <!-- Footer -->
   <footer>
+    <div class="partnership">
+        <p>In partnership with</p>
+        <a href="https://deo-digital-solutions.vercel.app/" target="_blank">
+            <img src="deo.png" alt="DEO">
+            </a>
+            </div>
     <div class="footer-content">
       <div class="footer-section">
         <h4>Quick Links</h4>
@@ -51,9 +64,22 @@
       <div class="footer-section">
         <h4>Follow Us</h4>
         <div class="social-icons">
-          <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
-          <a href="#"><img src="images/icons/twitter.png" alt="Twitter"></a>
-          <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/share/1UWmat7opd/?mibextid=wwXIfr" target="_blank">
+            <img src="facebook.jpeg" alt="Facebook">
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/twiceup1?igsh=MTNqaGR2aG5ldjBucA%3D%3D&utm_source=qr" target="_blank">
+            <img src="instagram.jpeg" alt="Instagram">
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://whatsapp.com/channel/0029Vb1rYNx545v0qwgsYu1f" target="_blank">
+            <img src="whatsapp.jpeg" alt="WhatsApp">
+          </a>
+          <!-- X (formerly Twitter) -->
+          <a href="https://x.com/twiceup_?s=21" target="_blank">
+            <img src="x.png" alt="X (Twitter)">
+          </a>
         </div>
       </div>
       <div class="footer-section">
@@ -62,9 +88,45 @@
         <button>Subscribe</button>
       </div>
     </div>
-    <p class="copyright">© 2023 Twice. All rights reserved.</p>
+    <p class="copyright">© 2025 Twice. All rights reserved.</p>
   </footer>
+  
 
+  <!-- External Scripts -->
   <script src="script.js"></script>
+
+  <!-- JavaScript to fetch Blogger posts -->
+  <script>
+    // Fetch and display only the latest Top Stories
+    function fetchBloggerPosts(limit = 5) {
+      const feedUrl = 'https://twicebiz.blogspot.com/feeds/posts/default';  // Correct feed URL
+      
+      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+        .then(response => response.json())
+        .then(data => {
+          const posts = data.items.slice(0, limit);  // Limit the number of posts displayed
+          const newsContainer = document.getElementById('news-container');
+
+          posts.forEach(post => {
+            const newsCard = document.createElement('article');
+            newsCard.classList.add('news-card');
+            
+            newsCard.innerHTML = `
+              <img src="${post.thumbnail}" alt="${post.title}">
+              <h3>${post.title}</h3>
+              <p>${post.description}</p>
+              <a href="${post.link}" class="read-more" target="_blank">Read More</a>
+            `;
+            
+            newsContainer.appendChild(newsCard);
+          });
+        })
+        .catch(error => console.error('Error fetching Blogger posts:', error));
+    }
+
+    // Load top stories
+    fetchBloggerPosts(5);  // Only show the latest 5 stories
+  </script>
+  <script src="link.js"></script>
 </body>
 </html>

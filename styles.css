@@ -133,11 +133,24 @@ nav a.active {
   margin: 1rem;
   border-radius: 4px;
 }
+.social-icons a {
+  margin-right: 15px;
+}
+
+.social-icons img {
+  height: 30px; /* Adjust logo size */
+  border-radius: 50%; /* Makes it circular */
+  object-fit: cover; /* Ensures the image fills the circle */
+}
+
+.social-icons img:hover {
+  transform: scale(1.1); /* Makes the icon slightly bigger on hover */
+}
 
 /* Footer */
 footer {
   background-color: black;
-  color: white;
+  color: ornage;
   padding: 20px;
   text-align: center;
 }
@@ -154,7 +167,11 @@ footer .footer-links ul li a {
   color: white;
   text-decoration: none;
 }
-
+.partnership img{
+  height: 75px; /* Adjust logo size */
+  border-radius: 50%; /* Makes it circular */
+  object-fit: cover; /* Ensures the image fills the circle */
+}
 footer .social-media {
   margin: 20px 0;
 }

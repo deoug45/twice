@@ -3,62 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Twice - Showbiz</title>
+  <title>Twice - Top Stories</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="logo">
-      <img src="images/logos/twice-logo.png" alt="Twice Logo">
+      <img src="logo.jpg" alt="Twice Logo">
     </div>
     <nav>
       <ul>
-        <li><a href="index.html">Top Stories</a></li>
-        <li><a href="showbiz.html" class="active">Showbiz</a></li>
+        <li><a href="index.html" class="active">Top Stories</a></li>
+        <li><a href="showbiz.html">Showbiz</a></li>
       </ul>
     </nav>
-    <div class="search-bar">
-      <input type="text" placeholder="Search news...">
-      <button>Search</button>
-    </div>
+  <!-- Search Bar -->
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search news...">
+    <button id="search-btn">Search</button>
+  </div>
+  
   </header>
 
-  <!-- Showbiz Featured Section -->
-  <section class="featured-showbiz">
-    <div class="featured-content">
-      <img src="images/showbiz1.jpg" alt="Celebrity Gossip">
-      <div class="featured-text">
-        <h2>Rihanna Announces World Tour</h2>
-        <p>Exclusive backstage details and ticket information...</p>
+  <!-- Hero Section (Breaking News) -->
+  <section class="hero">
+    <div class="slider">
+      <div class="slide">
+        <img src="welcome.jpg" alt="Breaking News">
+        <div class="slide-text">Enjoy our exclusive showbiz stories from the world of entertainment</div>
       </div>
     </div>
   </section>
 
-  <!-- Showbiz News Grid -->
-  <section class="news-grid">
-    <h2 class="section-title">Latest Showbiz</h2>
-    <div class="grid-container">
-      <article class="news-card">
-        <img src="images/showbiz2.jpg" alt="Showbiz 1">
-        <h3>Hollywood Award Scandals</h3>
-        <p>Shocking revelations from the red carpet...</p>
-        <a href="#" class="read-more">Read More</a>
-      </article>
-      <article class="news-card">
-        <img src="images/showbiz3.jpg" alt="Showbiz 2">
-        <h3>Nigerian Celeb Wedding</h3>
-        <p>Billion-dollar wedding trends in Lagos...</p>
-        <a href="#" class="read-more">Read More</a>
-      </article>
+   <!-- Showbiz News Section -->
+   <section class="news-grid">
+    <h2 class="section-title">Showbiz Stories</h2>
+    <div class="grid-container" id="news-container">
+      <!-- Full list of news will be displayed here -->
     </div>
   </section>
-
-  <!-- Footer (Same as index.html) -->
-  <footer>
-    <!-- Copy footer from index.html -->
-  </footer>
+        <footer>
+            <div class="partnership">
+                <p>In partnership with</p>
+                <a href="https://deo-digital-solutions.vercel.app/" target="_blank">
+                    <img src="deo.png" alt="DEO">
+                    </a>
+                    </div>
+            <div class="footer-content">
+              <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li><a href="index.html">Top Stories</a></li>
+                  <li><a href="showbiz.html">Showbiz</a></li>
+                </ul>
+              </div>
+              <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                  <!-- Facebook -->
+                  <a href="https://www.facebook.com/share/1UWmat7opd/?mibextid=wwXIfr" target="_blank">
+                    <img src="facebook.jpeg" alt="Facebook">
+                  </a>
+                  <!-- Instagram -->
+                  <a href="https://www.instagram.com/twiceup1?igsh=MTNqaGR2aG5ldjBucA%3D%3D&utm_source=qr" target="_blank">
+                    <img src="instagram.jpeg" alt="Instagram">
+                  </a>
+                  <!-- WhatsApp -->
+                  <a href="https://whatsapp.com/channel/0029Vb1rYNx545v0qwgsYu1f" target="_blank">
+                    <img src="whatsapp.jpeg" alt="WhatsApp">
+                  </a>
+                  <!-- X (formerly Twitter) -->
+                  <a href="https://x.com/twiceup_?s=21" target="_blank">
+                    <img src="x.png" alt="X (Twitter)">
+                  </a>
+                </div>
+              </div>
+              <div class="footer-section">
+                <h4>Newsletter</h4>
+                <input type="email" placeholder="Enter your email">
+                <button>Subscribe</button>
+              </div>
+            </div>
+            <p class="copyright">© 2025 Twice. All rights reserved.</p>
+      </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Fetch and display all Blogger posts
+    function fetchBloggerPosts(limit = 999) {
+      const feedUrl = 'https://twicebiz.blogspot.com/feeds/posts/default';
+    
+      // Fetching the RSS feed data from the API
+      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Fetched Data:', data); // Log the full data for debugging
+          
+          // Check if items exist
+          if (!data.items || data.items.length === 0) {
+            console.error('No posts found in the RSS feed');
+            return;
+          }
+  
+          const posts = data.items.slice(0, limit);  // Get all posts or limit to how many you want
+          const newsContainer = document.getElementById('news-container');
+          
+          posts.forEach(post => {
+            const newsCard = document.createElement('article');
+            newsCard.classList.add('news-card');
+            
+            // Check if the post has a thumbnail image, if not set a default
+            const postImage = post.thumbnail || 'https://via.placeholder.com/600x400?text=No+Image';
+    
+            // Check if the post has description, if not, use an empty string
+            const postDescription = post.description || "No description available.";
+    
+            // Fill the news card with the post data
+            newsCard.innerHTML = `
+              <img src="${postImage}" alt="${post.title}">
+              <h3>${post.title}</h3>
+              <p>${postDescription}</p>
+              <a href="${post.link}" class="read-more" target="_blank">Read More</a>
+            `;
+            
+            newsContainer.appendChild(newsCard);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching Blogger posts:', error);
+          alert('An error occurred while fetching posts. Please try again later.');
+        });
+    }
+    
+    // Load all stories when the page is loaded
+    window.onload = function() {
+      fetchBloggerPosts();
+    }
+  </script>
+<script src="link.js"></script>
 </body>
 </html>
