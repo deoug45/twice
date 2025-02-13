@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +14,8 @@
     </div>
     <nav>
       <ul>
-        <li><a href="index.php">Top Stories</a></li>
-        <li><a href="showbiz.php" class="active">Showbiz</a></li>
+        <li><a href="index.html">Top Stories</a></li>
+        <li><a href="showbiz.html" class="active">Showbiz</a></li>
       </ul>
     </nav>
     <div class="search-bar">
@@ -40,59 +39,24 @@
   <section class="news-grid">
     <h2 class="section-title">Latest Showbiz</h2>
     <div class="grid-container">
-      <?php
-      // Check if session news exists and filter Showbiz-related news
-      if (isset($_SESSION['news'])) {
-          // Filter for Showbiz content (example, assuming 'category' is set when adding news)
-          $showbiz_news = array_filter($_SESSION['news'], function ($news_item) {
-              return isset($news_item['category']) && $news_item['category'] === 'Showbiz';
-          });
-
-          // Display Showbiz news
-          if (!empty($showbiz_news)) {
-              foreach ($showbiz_news as $news) {
-                  echo '<article class="news-card">
-                          <img src="' . htmlspecialchars($news['image_url']) . '" alt="Showbiz Image">
-                          <h3>' . htmlspecialchars($news['title']) . '</h3>
-                          <p>' . htmlspecialchars($news['content']) . '</p>
-                          <a href="#" class="read-more">Read More</a>
-                        </article>';
-              }
-          } else {
-              echo "<p>No showbiz news available.</p>";
-          }
-      } else {
-          echo "<p>No showbiz news available.</p>";
-      }
-      ?>
+      <article class="news-card">
+        <img src="images/showbiz2.jpg" alt="Showbiz 1">
+        <h3>Hollywood Award Scandals</h3>
+        <p>Shocking revelations from the red carpet...</p>
+        <a href="#" class="read-more">Read More</a>
+      </article>
+      <article class="news-card">
+        <img src="images/showbiz3.jpg" alt="Showbiz 2">
+        <h3>Nigerian Celeb Wedding</h3>
+        <p>Billion-dollar wedding trends in Lagos...</p>
+        <a href="#" class="read-more">Read More</a>
+      </article>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (Same as index.html) -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.php">Top Stories</a></li>
-          <li><a href="showbiz.php">Showbiz</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Follow Us</h4>
-        <div class="social-icons">
-          <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
-          <a href="#"><img src="images/icons/twitter.png" alt="Twitter"></a>
-          <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
-        </div>
-      </div>
-      <div class="footer-section">
-        <h4>Newsletter</h4>
-        <input type="email" placeholder="Enter your email">
-        <button>Subscribe</button>
-      </div>
-    </div>
-    <p class="copyright">© 2023 Twice. All rights reserved.</p>
+    <!-- Copy footer from index.html -->
   </footer>
 
   <script src="script.js"></script>
